@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>morning pages</title>
+  <title>Morning Pages Tool</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,45 +32,61 @@
       display: none;
     }
   </style>
+  <h1>Morning Pages Tool</h1>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
 </head>
 <body>
 
-  <div id="charCount">文字数: 0/1000</div>
-  <textarea id="journal" placeholder="テキストを入力..."></textarea>
+  <div id="charCount">Word count: 0/750</div>
+  <textarea id="journal" placeholder="Start writing..."></textarea>
   <br>
-  <button onclick="clearJournal()">書き終わった</button>
-  <div id="completionMessage">おつかれ様(*˘︶˘*).｡.:*</div>
+  <button onclick="clearJournal()">Finished writing</button>
+  <div id="completionMessage">Congratulations!</div>
 
   <script>
     const journal = document.getElementById('journal');
-    const charCountDisplay = document.getElementById('charCount');
+    const wordCountDisplay = document.getElementById('charCount');
     const body = document.body;
     const completionMessage = document.getElementById('completionMessage');
 
-    journal.addEventListener('input', () => {
-      const count = journal.value.length;
-      charCountDisplay.textContent = `文字数: ${count}/1000`;
+    function countWords(text) {
+      return text
+        .trim()
+        .split(/\s+/)
+        .filter(word => word.length > 0)
+        .length;
+    }
 
-      if (count >= 1000) {
-        body.style.backgroundColor = '#d4f5d4'; 
+    journal.addEventListener('input', () => {
+      const words = countWords(journal.value);
+      wordCountDisplay.textContent = `Word count: ${words}/750`;
+
+      if (words >= 750) {
+        body.style.backgroundColor = '#d4f5d4';
       } else {
-        body.style.backgroundColor = ''; 
+        body.style.backgroundColor = '';
       }
     });
 
     function clearJournal() {
       journal.value = '';
-      charCountDisplay.textContent = '文字数: 0/1000';
+      wordCountDisplay.textContent = 'Word count: 0/750';
       body.style.backgroundColor = '';
       completionMessage.style.display = 'block';
       
-      // Hide the message after 3 seconds
       setTimeout(() => {
         completionMessage.style.display = 'none';
       }, 3000);
     }
   </script>
-
+  <h2>The Artist's Way</h2>
+  <p>Morning pages is a journaling method introduced in <a href="https://en.wikipedia.org/wiki/The_Artist%27s_Way">The Artist's Way: A Spiritual Path to Higher Creativity by Julia Cameron</a>, a self-help book about artistic creative recovery. The Artist's Way is a 12 week program designed to help creatives overcome blocks by channeling their spiritual insights to discover new creative pathways and abilities. However, as someone who isn't an artist, I was surprised by how much The Artist's Way resonated with me. It’s low-key a recovery from trauma workbook that non-artists can certainly also benefit from, with weekly topics such as recovering a sense of safety, autonomy, connection, faith, etc.</p>
+  <h2>Morning Pages</h2>
+  <p>In the morning, you fill out 3 pages of a notebook with whatever topics that come to mind. It’s supposed to be just a stream-of-consciousness mental dump of everything that you’re thinking, and you can write about anything. I always think that I have nothing to write and wonder how I’m going to fill out 3 full pages, but I also always manage to do it. It’s helped with my retention and creativity too. </p>
+  <p>Apparently you’re supposed to do it right in the morning when you wake up, but my mornings can be quite hectic, so I usually just find any time during the day. These days, my morning pages are pages and pages of negativity, but I hope to eventually get to a place where I don’t focus too much on the negative, and instead write more about the things I’m grateful for. When you write something down, your brain remembers it better. If you only write about the negative thoughts and emotions you have, you’ll remember them the most, and you’ll feel as if your life is worse than it actually is.</p>
+  <h2>Benefits of Journaling</h2>
+  <p>Journaling is an expressive coping method, a technique that helps a person process negative thoughts, feelings, or experiences by releasing them. By putting these things on the page, they can have less power over you. Writing about negative events can be extremely cathartic. It allows you to “cage” your thoughts and emotions so that you can acknowledge that they’re there and process them over time in a healthy way, instead of doing something stupid or picking fights your loved ones in the heat of the moment.</p>
+  <h2>Alternative Tools for Digital Journaling</h2>
+  <p> For those who prefer digital journaling over handwriting, <a href="https://750words.com">750words.com</a> is a writing site that encourages you to write at least 750 words (roughly equivalent to 3 written pages in a notebook), while gamifying the experience with streak counts and graphs visualizing the data about your writing, such as your sentiment and how often you use the same words. They recently switched over to a members-only system though, so a good free alternative is <a href="https://www.writehoney.com">Write Honey</a> </p>
 </body>
 </html>
